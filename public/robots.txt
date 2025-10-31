@@ -1,0 +1,20 @@
+# robots.txt for your site
+# Allow all crawlers to access the public pages.
+# IMPORTANT: replace the example domain in Sitemap with your real domain before deployment.
+
+User-agent: *
+Allow: /
+
+# Disallow account and cart-specific pages (private or session-based pages)
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile
+Disallow: /profile/
+Disallow: /profile/*
+
+# If you later add staging or admin areas, add them here.
+
+# Sitemap location (replace with your production domain)
+Sitemap: https://www.loop.pk/sitemap.xml

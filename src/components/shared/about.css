@@ -1,0 +1,74 @@
+.about-page {
+  background: #ffffff;
+  color: #2b2b2b;
+  padding: 48px 16px;
+  min-height: calc(100vh - 220px);
+}
+
+.about-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  background: transparent;
+  padding: 28px;
+  border-radius: 6px;
+}
+
+.about-inner h1 {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.about-inner h3 {
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+.about-inner p {
+  line-height: 1.6;
+  color: #444;
+}
+@import "styles/globalbakin.css";
+
+.about-page {
+  padding: 2rem 1rem;
+}
+
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff; /* plain white background per request */
+  color: var(--default-color);
+  padding: 2rem 1rem;
+  border-radius: 0; /* keep it simple, no rounded card */
+  box-shadow: none; /* no shadow for a minimal page */
+}
+
+.about-heading {
+  margin-top: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.about-lead {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.about-container h3 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.about-container p {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+@media only screen and (max-width: 768px) {
+  .about-container {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,119 @@
+@import "styles/globalbakin.css";
+
+.footer-container {
+  background: var(--primary-color);
+  color: var(--light-color);
+  padding: 2rem 1rem;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.footer-col {
+  flex: 1;
+}
+
+.footer-col h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--light-color);
+}
+
+/* Make headings bold and slightly larger, and make content small text */
+.footer-col h4 {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.footer-col p,
+.products-list li,
+.contact-icons a,
+.social-icons a {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: rgba(245, 234, 221, 0.92);
+}
+
+.footer-col p {
+  margin: 0;
+  line-height: 1.4;
+  color: rgba(245, 234, 221, 0.95);
+}
+
+.products-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.products-list li {
+  color: var(--light-color);
+}
+
+.contact-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.phone-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--light-color);
+  text-decoration: none;
+}
+
+.phone-number {
+  font-size: 0.95rem;
+  color: rgba(245, 234, 221, 0.95);
+}
+
+.footer-icon-style {
+  color: var(--light-color);
+  font-size: 1.4rem;
+}
+
+.footer-icon-style:hover {
+  color: var(--light-color);
+  opacity: 0.85;
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 1.25rem auto 0 auto;
+  text-align: center;
+}
+
+.social-icons {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.6rem;
+}
+
+.social-icons.vertical {
+  flex-direction: column;
+}
+
+.copywright {
+  font-size: 0.85rem;
+  color: rgba(245, 234, 221, 0.9);
+}
+
+@media only screen and (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .footer-col {
+    width: 100%;
+  }
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "pancake-001",
+    "title": "Classic Mini Pancakes",
+    "price": 250
+  },
+  {
+    "id": "pancake-002",
+    "title": "Chocolate Chip Pancakes",
+    "price": 300
+  }
+]

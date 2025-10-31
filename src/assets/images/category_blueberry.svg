@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <rect width="100%" height="100%" fill="#1f4b8f"/>
+  <g fill="#fff" font-family="Georgia, serif" font-size="72" font-weight="700">
+    <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle">Blueberry</text>
+    <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="44">Pancakes</text>
+  </g>
+</svg>
