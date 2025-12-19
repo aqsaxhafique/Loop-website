@@ -38,11 +38,11 @@ function useOperations() {
     let response;
     try {
       if (type === "increment")
-        response = await updateQuantityInCart(authToken, product.id, type);
+        response = await updateQuantityInCart(authToken, product.cartId || product.id, type);
       else {
         if (product.qty === 1)
-          response = await removeFromCart(authToken, product.id);
-        else response = await updateQuantityInCart(authToken, product.id, type);
+          response = await removeFromCart(authToken, product.cartId || product.id);
+        else response = await updateQuantityInCart(authToken, product.cartId || product.id, type);
       }
       dispatch({ type: CART_OPERATION, payload: { cart: response.cart } });
     } finally {
@@ -55,7 +55,7 @@ function useOperations() {
     setDisable(true);
     e.preventDefault();
     try {
-      const response = await removeFromCart(authToken, product.id);
+      const response = await removeFromCart(authToken, product.cartId || product.id);
       dispatch({ type: CART_OPERATION, payload: { cart: response.cart } });
     } finally {
       setDisable(false);
@@ -74,7 +74,7 @@ function useOperations() {
           payload: { wishlist: wishlistResponse.wishlist },
         });
       }
-      const cartResponse = await removeFromCart(authToken, product.id);
+      const cartResponse = await removeFromCart(authToken, product.cartId || product.id);
       dispatch({
         type: CART_OPERATION,
         payload: { cart: cartResponse.cart },
@@ -114,10 +114,16 @@ function useOperations() {
     try {
       if (!authToken) navigate("/login");
       else {
-        if (e.target.innerText.toUpperCase() === "ADD TO CART") {
+        const buttonText = e.target.innerText?.toUpperCase() || '';
+        if (buttonText === "GO TO CART ->") {
+          navigate("/cart");
+        } else {
+          // Add to cart for both "ADD TO CART" text and icon buttons
           const response = await addToCart(authToken, product);
           dispatch({ type: CART_OPERATION, payload: { cart: response.cart } });
-        } else navigate("/cart");
+          // Redirect to cart page after adding
+          setTimeout(() => navigate("/cart"), 500);
+        }
       }
     } catch (e) {
       resetFunction();

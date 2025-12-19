@@ -36,7 +36,7 @@ function OrderSummary() {
               </p>
             </div>
             <div className="order-items">
-              {order?.items.map((item) => (
+              {order?.items && Array.isArray(order.items) && order.items.map((item) => (
                 <SummaryItem
                   key={item.id}
                   id={item.id}

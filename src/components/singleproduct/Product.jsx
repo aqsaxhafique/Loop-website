@@ -10,10 +10,17 @@ import "./product.css";
 function Product() {
   const params = useParams();
   const { productsData } = useProductsData();
-  const product = productsData.find((p) => params.productId === p.id);
+  const product = productsData.find((p) => params.productId == p.id || params.productId === p.slug);
   const { authToken } = useAuth();
   const { getButtonText, cartHandler } = useOperations();
   const [cartLoader, setCartLoader] = useState(false);
+
+  // Debug: Check what product data looks like
+  React.useEffect(() => {
+    if (product) {
+      console.log('Product data:', product);
+    }
+  }, [product]);
 
   return (
     <div className="middle-content">
@@ -35,7 +42,9 @@ function Product() {
             </div>
             <div className="simple-product-content">
               <div className="product-title simple-title">{product.title}</div>
-              <div className="product-price simple-price">Rs. {product.price}</div>
+              <div className="product-price simple-price">
+                Rs. {product.price || product.originalPrice || 'N/A'}
+              </div>
               <div className="product-buttons simple-buttons">
                 {product.isOutOfStock ? (
                   <button className="btn btn-default product-btn" disabled>
@@ -43,17 +52,15 @@ function Product() {
                   </button>
                 ) : (
                   <button
-                    className="btn btn-primary product-btn icon-only"
+                    className="btn btn-primary product-btn"
                     onClick={(e) =>
                       authToken
                         ? cartHandler(e, product, setCartLoader)
                         : toast.info("Please login to continue!")
                     }
                     disabled={cartLoader}
-                    aria-label="Add to cart"
-                    title="Add to cart"
                   >
-                    <FontAwesomeIcon icon="cart-shopping" />
+                    {cartLoader ? "Adding..." : "Add to Cart"}
                   </button>
                 )}
               </div>

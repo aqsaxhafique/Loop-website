@@ -27,7 +27,7 @@ const ProductsDataProvider = ({ children }) => {
         try {
           let resp = await axios.get(`${API_URL}/api/products`);
           if (resp.status === 200) {
-            // Use the local pancake photos the user added and assign them randomly to products
+            // Use database images, with fallback to local images
             const localImages = [
               cat1,
               cat2,
@@ -43,27 +43,21 @@ const ProductsDataProvider = ({ children }) => {
 
             const products = resp.data.products.map((p) => ({
               ...p,
-              imageUrl:
-                localImages[Math.floor(Math.random() * localImages.length)],
+              imageUrl: p.image_url || localImages[Math.floor(Math.random() * localImages.length)],
+              categoryName: p.category_name, // Ensure camelCase for consistency
             }));
 
             setProductsData(products);
           }
           resp = await axios.get(`${API_URL}/api/categories`);
           if (resp.status === 200) {
-            // Map categories to specific local pancake images with titles
-            const categoryImages = [cat1, cat2, cat3, cat4];
-            const categoryTitles = [
-              "Blueberry",
-              "Strawberry",
-              "Chocolate",
-              "Lotus",
-            ];
+            // Map categories to specific local pancake images
+            const categoryImages = [cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10];
 
             const categories = resp.data.categories.map((c, i) => ({
               ...c,
-              title: categoryTitles[i % categoryTitles.length],
-              imageUrl: categoryImages[i % categoryImages.length],
+              title: c.name, // Use real category name from database
+              imageUrl: c.image_url || categoryImages[i % categoryImages.length], // Use DB image or fallback
             }));
 
             setCategoriesData(categories);

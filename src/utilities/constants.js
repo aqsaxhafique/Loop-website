@@ -1,1 +1,1 @@
-export const API_URL = "https://bakinlane-server.netlify.app/.netlify/functions";
+export const API_URL = "http://localhost:5000";

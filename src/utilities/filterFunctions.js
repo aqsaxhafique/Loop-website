@@ -21,7 +21,11 @@ const funcItemCategory = (items, categoryArray) =>
   items.filter((item) => categoryArray.includes(item.item));
 
 const funcFlavorCategory = (items, categoryArray) =>
-  items.filter((item) => categoryArray.includes(item.categoryName));
+  items.filter((item) => 
+    categoryArray.some(cat => 
+      item.categoryName && item.categoryName.toLowerCase() === cat.toLowerCase()
+    )
+  );
 
 const funcPriceRangeCategory = (items, categoryArray) =>
   items.filter((item) => categoryArray.includes(item.priceCategory));

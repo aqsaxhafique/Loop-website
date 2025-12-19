@@ -5,7 +5,7 @@ import { API_URL } from "utilities";
 const getOrdersFromServer = async (authToken) => {
   try {
     const response = await axios.get(`${API_URL}/api/user/orders`, {
-      headers: { authorization: authToken },
+      headers: { Authorization: `Bearer ${authToken}` },
     });
     if (response.status === 200) {
       return response.data;
@@ -23,7 +23,7 @@ const addToOrdersInServer = async (authToken, order) => {
       `${API_URL}/api/user/orders`,
       { order },
       {
-        headers: { authorization: authToken },
+        headers: { Authorization: `Bearer ${authToken}` },
       }
     );
     if (response.status === 201) {

@@ -60,7 +60,7 @@ function Navigation() {
           {/* brand name removed per request */}
           <div className="nav-links">
             <NavLink
-              to="/"
+              to="/home"
               className={({ isActive }) =>
                 isActive ? "nav-item nav-active" : "nav-item"
               }

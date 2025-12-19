@@ -11,10 +11,11 @@ async function loginService(email, password) {
     if (response.status === 200) {
       return response.data;
     } else {
-      throw new Error();
+      throw new Error('Login failed');
     }
   } catch (e) {
     console.error("loginService: Error in Login", e);
+    throw e; // Re-throw so useLoginHandler can catch it
   }
 }
 

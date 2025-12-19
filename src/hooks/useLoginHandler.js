@@ -39,45 +39,81 @@ function useLoginHandler() {
         });
         response = await loginService("johndoe@gmail.com", "johndoe@123");
       } else response = await loginService(loginData.email, loginData.password);
-      const tokenResponse = response.user.token;
+      
+      // Check if login was successful
+      if (!response || !response.success) {
+        throw new Error('Login failed');
+      }
+      
+      const tokenResponse = response.token;
       const foundUser = {
         firstName: response.user.firstName,
         lastName: response.user.lastName,
         email: response.user.email,
+        role: response.user.role,
       };
-      if (e) toast.success("Log In successful");
       if (response.user) {
         setAuthToken(tokenResponse);
         setAuthUser(foundUser);
         localStorage.setItem("authToken", tokenResponse);
         localStorage.setItem("authUser", JSON.stringify(foundUser));
-        response = await getCart(tokenResponse);
-        dispatch({
-          type: CART_OPERATION,
-          payload: { cart: response.cart },
-        });
-        response = await getWishlist(tokenResponse);
-        dispatch({
-          type: WISHLIST_OPERATION,
-          payload: { wishlist: response.wishlist },
-        });
-        response = await getAddressFromServer(tokenResponse);
-        dispatch({
-          type: SET_ADDRESS,
-          payload: { address: response.address },
-        });
-        response = await getOrdersFromServer(tokenResponse);
-        dispatch({
-          type: SET_ORDERS,
-          payload: { orders: response.orders },
-        });
-        if (location.state) navigate(location.state?.from?.pathname);
-        else navigate("/products");
+        
+        // Try to load user data, but don't fail if endpoints don't exist
+        try {
+          response = await getCart(tokenResponse);
+          dispatch({
+            type: CART_OPERATION,
+            payload: { cart: response.cart },
+          });
+        } catch (err) {
+          console.log("Cart endpoint not available yet");
+        }
+        
+        try {
+          response = await getWishlist(tokenResponse);
+          dispatch({
+            type: WISHLIST_OPERATION,
+            payload: { wishlist: response.wishlist },
+          });
+        } catch (err) {
+          console.log("Wishlist endpoint not available yet");
+        }
+        
+        try {
+          response = await getAddressFromServer(tokenResponse);
+          dispatch({
+            type: SET_ADDRESS,
+            payload: { address: response.address },
+          });
+        } catch (err) {
+          console.log("Address endpoint not available yet");
+        }
+        
+        try {
+          response = await getOrdersFromServer(tokenResponse);
+          dispatch({
+            type: SET_ORDERS,
+            payload: { orders: response.orders },
+          });
+        } catch (err) {
+          console.log("Orders endpoint not available yet");
+        }
+        
+        if (e) toast.success("Log In successful");
+        
+        // Redirect based on user role
+        if (foundUser.role === 'admin') {
+          navigate("/admin");
+        } else if (location.state) {
+          navigate(location.state?.from?.pathname);
+        } else {
+          navigate("/home");
+        }
       }
     } catch (e) {
-      if (setLoginData) toast.error(`Couldn't Login! Please try again.`);
       console.error("loginHandler: Error in Login", e);
       setErrorData(true);
+      if (e) toast.error(`Invalid email or password`);
     } finally {
       if (setDisableLogin) setDisableLogin(false);
     }

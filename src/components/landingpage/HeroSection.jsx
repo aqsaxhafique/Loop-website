@@ -12,9 +12,14 @@ import { useEffect, useState } from "react";
 
 function HeroSection() {
   const { productsData, categoriesData } = useProductsData();
+  // Show products with best offers as trending, or just first 4 products
   const trendingItems = productsData
-    .filter((item) => item.isBestSeller)
+    .filter((item) => item.is_best_seller || item.offer_percentage > 0)
     .slice(0, 4);
+  
+  // If no trending items, just show first 4 products
+  const displayTrending = trendingItems.length > 0 ? trendingItems : productsData.slice(0, 4);
+  
   const { dispatch } = useData();
   let navigate = useNavigate();
 
@@ -119,7 +124,7 @@ function HeroSection() {
       <div className="container-main">
         <h3 className="align-center heading3">Trending</h3>
         <div className="cards">
-          {trendingItems.map((product) => (
+          {displayTrending.map((product) => (
             <Link
               to={`/products/${product.id}`}
               key={product.id}

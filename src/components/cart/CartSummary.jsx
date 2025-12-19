@@ -4,25 +4,16 @@ import { useData, useAuth } from "contexts";
 import { useCartSummary } from "hooks";
 import "./cart.css";
 import { CartPriceTable } from "./CartPriceTable";
-import { addToOrdersInServer, clearCartInServer } from "services";
-import { CART_OPERATION, SET_ORDERS } from "constants/index";
+import { CheckoutModal } from "./CheckoutModal";
 import { useNavigate } from "react-router-dom";
 
 function CartSummary() {
-  const { coupon, setCoupon, state, dispatch, deliveryAddress } = useData();
+  const { coupon, setCoupon, state } = useData();
   const [showCouponModal, setShowCouponModal] = useState(false);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const { getTotalPrice } = useCartSummary();
-  const [showPlacedModal, setShowPlacedModal] = useState(false);
   const { authToken } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    let timer;
-    if (showPlacedModal) {
-      timer = setTimeout(() => setShowPlacedModal(false), 2500);
-    }
-    return () => clearTimeout(timer);
-  }, [showPlacedModal]);
 
   const coupons = [
     {
@@ -58,55 +49,22 @@ function CartSummary() {
       <CartPriceTable />
       <button
         className="btn btn-primary order-button no-decoration inline-flex"
-        onClick={async () => {
+        onClick={() => {
           // If not authenticated, redirect to login
           if (!authToken) {
             navigate("/login", { replace: false });
             return;
           }
-
-          try {
-            const order = {
-              items: state.cart,
-              paymentId: "DIRECT",
-              totalPrice: getTotalPrice(),
-              deliveryAddress: deliveryAddress || null,
-              orderDate: new Date(),
-            };
-
-            const response = await addToOrdersInServer(authToken, order);
-            if (response && response.orders) {
-              // update orders in client state
-              dispatch({ type: SET_ORDERS, payload: { orders: response.orders } });
-              // clear cart on server and update client
-              const cleared = await clearCartInServer(authToken);
-              if (cleared) {
-                dispatch({ type: CART_OPERATION, payload: { cart: cleared.cart } });
-              }
-              setShowPlacedModal(true);
-              // optionally navigate to orders after brief delay
-              setTimeout(() => navigate("/profile/orders"), 1200);
-            }
-          } catch (e) {
-            console.error("Checkout error", e);
-          }
+          
+          // Open checkout modal
+          setShowCheckoutModal(true);
         }}
       >
         CHECKOUT
       </button>
-      {showPlacedModal && (
-        <div className="address-modal-container">
-          <div className="coupon-modal flex-column-center">
-            <h4>Order Placed</h4>
-            <p>Your order is placed successfully.</p>
-            <button
-              className="btn-no-decoration btn-close btn-close-coupon cursor-pointer"
-              onClick={() => setShowPlacedModal(false)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
+      
+      {showCheckoutModal && (
+        <CheckoutModal onClose={() => setShowCheckoutModal(false)} />
       )}
       {showCouponModal && (
         <div className="address-modal-container">
