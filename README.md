@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/public/pancake logo.png" height="100" width="100" alt="Loop logo"/>
+  <img src="/public/pancake_logo.png" height="100" width="100" alt="Loop logo"/>
   <h1>Loop</h1>
   <p>
     Loop is a modern food-focused e-commerce web application designed to deliver a smooth and engaging shopping experience.
