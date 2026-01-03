@@ -19,7 +19,7 @@ const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-// const addressRoutes = require('./routes/addressRoutes');
+const addressRoutes = require('./routes/addressRoutes');
 
 // Routes
 app.get("/", (req, res) => {
@@ -61,7 +61,7 @@ app.use('/api', productRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', orderRoutes);
 app.use('/api', adminRoutes);
-// app.use('/api', addressRoutes);
+app.use('/api', addressRoutes);
 
 // Temporary route to generate password hashes (remove in production)
 app.get('/generate-hash/:password', async (req, res) => {

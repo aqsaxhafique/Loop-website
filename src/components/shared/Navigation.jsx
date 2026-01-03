@@ -57,33 +57,33 @@ function Navigation() {
           <Link to="/">
             <h1 className="logo-text">Loop</h1>
           </Link>
-          {/* brand name removed per request */}
-          <div className="nav-links">
-            <NavLink
-              to="/home"
-              className={({ isActive }) =>
-                isActive ? "nav-item nav-active" : "nav-item"
-              }
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                isActive ? "nav-item nav-active" : "nav-item"
-              }
-            >
-              About Us
-            </NavLink>
-            <NavLink
-              to="/products"
-              className={({ isActive }) =>
-                isActive ? "nav-item nav-active" : "nav-item"
-              }
-            >
-              Order Now
-            </NavLink>
-          </div>
+        </div>
+        
+        <div className="nav-links">
+          <NavLink
+            to="/home"
+            className={({ isActive }) =>
+              isActive ? "nav-item nav-active" : "nav-item"
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? "nav-item nav-active" : "nav-item"
+            }
+          >
+            About Us
+          </NavLink>
+          <NavLink
+            to="/products"
+            className={({ isActive }) =>
+              isActive ? "nav-item nav-active" : "nav-item"
+            }
+          >
+            Order Now
+          </NavLink>
         </div>
         <div className="nav-right">
           <form onSubmit={searchHandler} className="searchbar-container">

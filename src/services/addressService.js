@@ -4,8 +4,8 @@ import { API_URL } from "utilities";
 
 const getAddressFromServer = async (authToken) => {
   try {
-    const response = await axios.get(`${API_URL}/api/user/address`, {
-      headers: { authorization: authToken },
+    const response = await axios.get(`${API_URL}/api/user/addresses`, {
+      headers: { Authorization: `Bearer ${authToken}` },
     });
     if (response.status === 200) {
       return response.data;
@@ -23,10 +23,10 @@ const getAddressFromServer = async (authToken) => {
 const addAddressInServer = async (authToken, address) => {
   try {
     const response = await axios.post(
-      `${API_URL}/api/user/address`,
+      `${API_URL}/api/user/addresses`,
       { address },
       {
-        headers: { authorization: authToken },
+        headers: { Authorization: `Bearer ${authToken}` },
       }
     );
     if (response.status === 201) {
@@ -43,11 +43,11 @@ const addAddressInServer = async (authToken, address) => {
 
 const updateAddressInServer = async (authToken, id, address) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/api/user/address/${id}`,
+    const response = await axios.put(
+      `${API_URL}/api/user/addresses/${id}`,
       { address },
       {
-        headers: { authorization: authToken },
+        headers: { Authorization: `Bearer ${authToken}` },
       }
     );
     if (response.status === 200) {
@@ -64,8 +64,8 @@ const updateAddressInServer = async (authToken, id, address) => {
 
 const removeAddressFromServer = async (authToken, id) => {
   try {
-    const response = await axios.delete(`${API_URL}/api/user/address/${id}`, {
-      headers: { authorization: authToken },
+    const response = await axios.delete(`${API_URL}/api/user/addresses/${id}`, {
+      headers: { Authorization: `Bearer ${authToken}` },
     });
     if (response.status === 200) {
       toast.success("Address deleted!");
